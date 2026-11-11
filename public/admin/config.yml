@@ -12,8 +12,8 @@ backend:
     uploadMedia: "Imagen subida: {{path}}"
     deleteMedia: "Imagen borrada: {{path}}"
 
-site_url: https://www.ejemplo.com.ar
-display_url: https://www.ejemplo.com.ar
+site_url: https://centroargentinoyogareiki.com.ar
+display_url: https://centroargentinoyogareiki.com.ar
 logo_url: /favicon.svg
 
 media_folder: public/uploads
