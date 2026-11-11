@@ -136,9 +136,10 @@ const anio = new Date().getFullYear();
   .cabecera__fila { display: flex; align-items: center; justify-content: space-between; height: 68px; }
   .marca {
     display: flex; align-items: center; gap: 10px;
-    font-family: var(--serif); font-size: 1.4rem; font-weight: 600;
-    color: var(--tinta); text-decoration: none;
+    font-family: var(--serif); font-size: clamp(1.05rem, 4.2vw, 1.4rem); font-weight: 600;
+    line-height: 1.1; color: var(--tinta); text-decoration: none;
   }
+  .marca img { flex-shrink: 0; }
   .marca:hover { color: var(--tinta); }
 
   .menu-btn {
@@ -162,7 +163,7 @@ const anio = new Date().getFullYear();
   }
   .nav__link--activo { color: var(--terracota); }
 
-  @media (min-width: 960px) {
+  @media (min-width: 1140px) {
     .menu-btn { display: none; }
     .nav {
       display: flex; position: static; flex-direction: row; gap: 4px;
