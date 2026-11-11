@@ -2,7 +2,7 @@
 # Completar repo y base_url al hacer el deploy (ver README.md).
 backend:
   name: github
-  repo: USUARIO_GITHUB/NOMBRE_REPO
+  repo: Liku-beep-boop/centro-yoga
   branch: main
   base_url: https://sveltia-cms-auth.USUARIO.workers.dev
   commit_messages:
