@@ -4,7 +4,7 @@ backend:
   name: github
   repo: Liku-beep-boop/centro-yoga
   branch: main
-  base_url: https://sveltia-cms-auth.USUARIO.workers.dev
+  base_url: https://sveltia-cms-auth.daniel-trake02.workers.dev
   commit_messages:
     create: "Nuevo: {{collection}} «{{slug}}»"
     update: "Actualizado: {{collection}} «{{slug}}»"
