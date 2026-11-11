@@ -1,0 +1,33 @@
+---
+import Base from '../layouts/Base.astro';
+import CabeceraPagina from '../components/CabeceraPagina.astro';
+import GrillaHorarios from '../components/GrillaHorarios.astro';
+import ListaEventos from '../components/ListaEventos.astro';
+import horarios from '../data/horarios.json';
+import { eventosFuturos } from '../lib/utils';
+
+const eventos = await eventosFuturos();
+---
+
+<Base titulo="Horarios" descripcion="Grilla semanal de clases de yoga y próximos talleres.">
+  <CabeceraPagina eyebrow="Almanaque" titulo="Horarios" subtitulo={horarios.aviso} />
+
+  <section class="seccion">
+    <div class="contenedor">
+      <div class="encabezado-seccion">
+        <h2>Clases semanales</h2>
+      </div>
+      <GrillaHorarios />
+      <p style="margin-top: 28px"><a href="/precios" class="btn btn--primario">Ver precios</a></p>
+    </div>
+  </section>
+
+  <section class="seccion seccion--alt" id="eventos">
+    <div class="contenedor">
+      <div class="encabezado-seccion">
+        <h2>Talleres, retiros y encuentros</h2>
+      </div>
+      <ListaEventos eventos={eventos} mostrarDescripcion />
+    </div>
+  </section>
+</Base>

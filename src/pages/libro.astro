@@ -1,0 +1,54 @@
+---
+import Base from '../layouts/Base.astro';
+import libro from '../data/libro.json';
+import { parrafos } from '../lib/utils';
+
+type Link = { texto: string; url: string };
+const links = (libro.links ?? []) as Link[];
+---
+
+<Base titulo={libro.titulo} descripcion={libro.subtitulo} imagen={libro.portada}>
+  <section class="seccion libro">
+    <div class="contenedor libro__grid">
+      <div class="libro__portada">
+        {libro.portada ? (
+          <img src={libro.portada} alt={`Portada de ${libro.titulo}`} />
+        ) : (
+          <div class="portada-vacia" aria-hidden="true"><span>{libro.titulo}</span></div>
+        )}
+      </div>
+      <div>
+        <span class="eyebrow">El libro</span>
+        <h1>{libro.titulo}</h1>
+        {libro.subtitulo && <p class="lead">{libro.subtitulo}</p>}
+        <div class="prosa">
+          {parrafos(libro.descripcion).map((p) => <p>{p}</p>)}
+          {libro.cita && <blockquote>{libro.cita}</blockquote>}
+        </div>
+        {links.length > 0 && (
+          <div class="acciones">
+            {links.map((l, i) => (
+              <a href={l.url} class:list={['btn', i === 0 ? 'btn--primario' : 'btn--borde']} target="_blank" rel="noopener">
+                {l.texto}
+              </a>
+            ))}
+          </div>
+        )}
+      </div>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .libro { background: radial-gradient(circle at 20% 30%, rgba(217, 150, 43, 0.15), transparent 50%), var(--crema); }
+  .libro__grid { display: grid; gap: 48px; align-items: start; }
+  @media (min-width: 860px) { .libro__grid { grid-template-columns: 340px 1fr; } }
+  .libro__portada img { border-radius: 6px; box-shadow: 0 18px 40px rgba(60, 40, 20, 0.22); width: 100%; max-width: 340px; margin: 0 auto; }
+  .portada-vacia {
+    aspect-ratio: 2 / 3; max-width: 340px; margin: 0 auto;
+    display: grid; place-items: center; text-align: center; padding: 24px;
+    border-radius: 6px; box-shadow: 0 18px 40px rgba(60, 40, 20, 0.22);
+    background: linear-gradient(160deg, var(--terracota), var(--terracota-osc));
+    color: var(--crema); font-family: var(--serif); font-size: 2rem;
+  }
+</style>

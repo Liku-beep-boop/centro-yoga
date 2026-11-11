@@ -1,0 +1,56 @@
+---
+import horarios from '../data/horarios.json';
+import { DIAS } from '../lib/utils';
+
+type Clase = { dia: string; inicio: string; fin?: string; clase: string; profesora?: string; nivel?: string };
+const clases = (horarios.clases ?? []) as Clase[];
+
+const porDia = DIAS.map((dia) => ({
+  dia,
+  clases: clases.filter((c) => c.dia === dia).sort((a, b) => a.inicio.localeCompare(b.inicio)),
+})).filter((d) => d.clases.length > 0);
+---
+
+{porDia.length === 0 ? (
+  <p class="vacio">Pronto vamos a publicar la grilla de horarios.</p>
+) : (
+  <div class="grilla">
+    {porDia.map(({ dia, clases }) => (
+      <div class="dia">
+        <h3 class="dia__nombre">{dia}</h3>
+        <ul class="dia__lista">
+          {clases.map((c) => (
+            <li class="clase">
+              <span class="clase__hora">{c.inicio}{c.fin && ` – ${c.fin}`}</span>
+              <span class="clase__nombre">{c.clase}</span>
+              {(c.profesora || c.nivel) && (
+                <span class="clase__meta">{[c.profesora, c.nivel].filter(Boolean).join(' · ')}</span>
+              )}
+            </li>
+          ))}
+        </ul>
+      </div>
+    ))}
+  </div>
+)}
+
+<style>
+  .grilla { display: grid; gap: 16px; }
+  @media (min-width: 640px) { .grilla { grid-template-columns: repeat(2, 1fr); } }
+  @media (min-width: 1000px) { .grilla { grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); } }
+
+  .dia {
+    background: var(--blanco);
+    border-radius: var(--radio);
+    box-shadow: var(--sombra);
+    padding: 20px 18px;
+    border-top: 4px solid var(--terracota);
+  }
+  .dia__nombre { font-size: 1.5rem; margin-bottom: 12px; }
+  .dia__lista { list-style: none; margin: 0; padding: 0; display: grid; gap: 12px; }
+  .clase { display: grid; gap: 2px; padding-bottom: 12px; border-bottom: 1px dashed var(--arena); }
+  .clase:last-child { border-bottom: 0; padding-bottom: 0; }
+  .clase__hora { font-weight: 700; color: var(--terracota-osc); font-size: 0.95rem; font-variant-numeric: tabular-nums; }
+  .clase__nombre { font-weight: 700; }
+  .clase__meta { font-size: 0.88rem; color: var(--tinta-suave); }
+</style>

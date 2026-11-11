@@ -1,0 +1,99 @@
+---
+import Base from '../layouts/Base.astro';
+import CabeceraPagina from '../components/CabeceraPagina.astro';
+import sitio from '../data/sitio.json';
+import { waLink } from '../lib/utils';
+
+const wa = waLink(sitio.whatsapp, sitio.whatsapp_mensaje);
+const numeroVisible = sitio.whatsapp ? `+${sitio.whatsapp.replace(/\D/g, '')}` : '';
+---
+
+<Base titulo="Contacto" descripcion={`Contacto y ubicación de ${sitio.nombre}.`}>
+  <CabeceraPagina eyebrow="Contacto" titulo="Escribinos" subtitulo="Respondemos todas las consultas. La forma más rápida es por WhatsApp." />
+
+  <section class="seccion">
+    <div class="contenedor contacto">
+      <div class="contacto__datos">
+        {wa && (
+          <div class="dato">
+            <h3>WhatsApp</h3>
+            <p>{numeroVisible}</p>
+            <a href={wa} class="btn btn--wa" target="_blank" rel="noopener">Abrir WhatsApp</a>
+          </div>
+        )}
+        {sitio.email && (
+          <div class="dato">
+            <h3>Email</h3>
+            <p><a href={`mailto:${sitio.email}`}>{sitio.email}</a></p>
+          </div>
+        )}
+        {sitio.direccion && (
+          <div class="dato">
+            <h3>Dirección</h3>
+            <p>{sitio.direccion}</p>
+            <p>
+              <a href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(sitio.direccion)}`} target="_blank" rel="noopener">
+                Cómo llegar →
+              </a>
+            </p>
+          </div>
+        )}
+        {(sitio.instagram || sitio.facebook) && (
+          <div class="dato">
+            <h3>Redes</h3>
+            <p class="redes">
+              {sitio.instagram && <a href={sitio.instagram} target="_blank" rel="noopener">Instagram</a>}
+              {sitio.facebook && <a href={sitio.facebook} target="_blank" rel="noopener">Facebook</a>}
+            </p>
+          </div>
+        )}
+      </div>
+
+      <div>
+        {sitio.web3forms_key ? (
+          <form class="formulario tarjeta" action="https://api.web3forms.com/submit" method="POST">
+            <input type="hidden" name="access_key" value={sitio.web3forms_key} />
+            <input type="hidden" name="subject" value={`Consulta desde la web — ${sitio.nombre}`} />
+            <input type="checkbox" name="botcheck" class="sr-only" tabindex="-1" autocomplete="off" />
+            <h3>Dejanos tu consulta</h3>
+            <label>Nombre<input type="text" name="nombre" required autocomplete="name" /></label>
+            <label>Email<input type="email" name="email" required autocomplete="email" /></label>
+            <label>Teléfono (opcional)<input type="tel" name="telefono" autocomplete="tel" /></label>
+            <label>Mensaje<textarea name="mensaje" rows="5" required></textarea></label>
+            <button type="submit" class="btn btn--primario">Enviar</button>
+          </form>
+        ) : null}
+        {sitio.mapa_embed && (
+          <iframe
+            class="mapa"
+            src={sitio.mapa_embed}
+            title={`Mapa de ${sitio.nombre}`}
+            loading="lazy"
+            referrerpolicy="no-referrer-when-downgrade"
+            allowfullscreen
+          ></iframe>
+        )}
+      </div>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .contacto { display: grid; gap: 40px; }
+  @media (min-width: 860px) { .contacto { grid-template-columns: 1fr 1.3fr; } }
+  .contacto__datos { display: grid; gap: 28px; align-content: start; }
+  .dato h3 { margin-bottom: 0.2em; }
+  .dato p { margin-bottom: 0.5em; }
+  .redes { display: flex; gap: 16px; }
+
+  .formulario { padding: 28px 24px; display: grid; gap: 16px; margin-bottom: 28px; }
+  label { display: grid; gap: 6px; font-weight: 600; font-size: 0.95rem; }
+  input, textarea {
+    font: inherit; padding: 12px 14px; border-radius: 10px;
+    border: 1px solid var(--arena); background: var(--crema); color: var(--tinta);
+  }
+  input:focus, textarea:focus { outline: 2px solid var(--terracota); outline-offset: 1px; border-color: transparent; }
+  .formulario .btn { justify-self: start; }
+
+  .mapa { width: 100%; aspect-ratio: 4 / 3; border: 0; border-radius: var(--radio); box-shadow: var(--sombra); }
+</style>

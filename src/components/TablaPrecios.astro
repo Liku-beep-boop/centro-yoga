@@ -1,0 +1,47 @@
+---
+import precios from '../data/precios.json';
+
+type Plan = { nombre: string; precio: string; periodo?: string; detalle?: string[]; destacado?: boolean };
+const planes = (precios.planes ?? []) as Plan[];
+---
+
+{planes.length === 0 ? (
+  <p class="vacio">Consultanos por los valores actuales.</p>
+) : (
+  <div class="planes">
+    {planes.map((p) => (
+      <div class:list={['plan tarjeta', { 'plan--destacado': p.destacado }]}>
+        {p.destacado && <span class="plan__badge">Recomendado</span>}
+        <h3>{p.nombre}</h3>
+        <p class="plan__precio">{p.precio}</p>
+        {p.periodo && <p class="plan__periodo">{p.periodo}</p>}
+        {p.detalle && p.detalle.length > 0 && (
+          <ul>
+            {p.detalle.map((item) => <li>{item}</li>)}
+          </ul>
+        )}
+      </div>
+    ))}
+  </div>
+)}
+
+<style>
+  .planes { display: grid; gap: 20px; }
+  @media (min-width: 640px) { .planes { grid-template-columns: repeat(2, 1fr); } }
+  @media (min-width: 1000px) { .planes { grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); } }
+
+  .plan { position: relative; padding: 28px 24px; border: 2px solid transparent; }
+  .plan--destacado { border-color: var(--terracota); }
+  .plan__badge {
+    position: absolute; top: 16px; right: 16px;
+    background: var(--azafran); color: var(--tinta);
+    font-size: 0.72rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase;
+    padding: 4px 10px; border-radius: 999px;
+  }
+  .plan h3 { font-size: 1.45rem; padding-right: 90px; }
+  .plan__precio { font-family: var(--serif); font-size: 2.6rem; font-weight: 600; color: var(--terracota-osc); margin: 0; line-height: 1.1; }
+  .plan__periodo { color: var(--tinta-suave); font-size: 0.9rem; margin-bottom: 16px; }
+  ul { list-style: none; padding: 0; margin: 0; display: grid; gap: 8px; }
+  li { padding-left: 1.5em; position: relative; font-size: 0.97rem; }
+  li::before { content: '✓'; position: absolute; left: 0; color: var(--salvia); font-weight: 700; }
+</style>

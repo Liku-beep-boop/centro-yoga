@@ -1,0 +1,64 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import { fmtFecha } from '../lib/utils';
+import sitio from '../data/sitio.json';
+import { waLink } from '../lib/utils';
+
+interface Props {
+  eventos: CollectionEntry<'eventos'>[];
+  mostrarDescripcion?: boolean;
+}
+const { eventos, mostrarDescripcion = false } = Astro.props;
+---
+
+{eventos.length === 0 ? (
+  <p class="vacio">Por ahora no hay eventos programados. ¡Seguinos en redes para enterarte de los próximos!</p>
+) : (
+  <div class="eventos">
+    {eventos.map((e) => {
+      const d = e.data;
+      const inscribirse = d.inscripcion || waLink(sitio.whatsapp, `¡Hola! Quiero inscribirme a: ${d.titulo}`);
+      return (
+        <article class="evento tarjeta">
+          <div class="evento__fecha">
+            <span class="evento__dia">{fmtFecha(d.fecha, { day: 'numeric' })}</span>
+            <span class="evento__mes">{fmtFecha(d.fecha, { month: 'short' }).replace('.', '')}</span>
+          </div>
+          <div class="evento__cuerpo">
+            <h3>{d.titulo}</h3>
+            <p class="evento__meta">
+              {fmtFecha(d.fecha, { weekday: 'long', day: 'numeric', month: 'long' })}
+              {d.hora && ` · ${d.hora}${d.hora_fin ? ` a ${d.hora_fin}` : ''} hs`}
+              {d.lugar && ` · ${d.lugar}`}
+            </p>
+            {mostrarDescripcion && e.body && <p>{e.body.trim()}</p>}
+            <div class="evento__pie">
+              {d.precio && <span class="evento__precio">{d.precio}</span>}
+              {inscribirse && (
+                <a href={inscribirse} class="btn btn--borde" target="_blank" rel="noopener">Inscribirme</a>
+              )}
+            </div>
+          </div>
+        </article>
+      );
+    })}
+  </div>
+)}
+
+<style>
+  .eventos { display: grid; gap: 16px; }
+  .evento { display: grid; grid-template-columns: 76px 1fr; gap: 18px; padding: 20px; align-items: start; }
+  .evento__fecha {
+    display: grid; place-items: center; text-align: center;
+    background: var(--terracota); color: var(--blanco);
+    border-radius: 12px; padding: 10px 4px; line-height: 1.1;
+  }
+  .evento__dia { font-family: var(--serif); font-size: 2rem; font-weight: 600; }
+  .evento__mes { text-transform: uppercase; font-size: 0.8rem; letter-spacing: 0.1em; }
+  .evento h3 { margin-bottom: 0.2em; }
+  .evento__meta { color: var(--tinta-suave); font-size: 0.95rem; margin-bottom: 0.6em; }
+  .evento__meta::first-letter { text-transform: uppercase; }
+  .evento__pie { display: flex; flex-wrap: wrap; align-items: center; gap: 12px 20px; }
+  .evento__precio { font-weight: 700; color: var(--salvia); }
+  .evento .btn { padding: 0.5rem 1.1rem; font-size: 0.9rem; }
+</style>

@@ -1,0 +1,148 @@
+:root {
+  --crema: #faf6ef;
+  --crema-2: #f3ebdd;
+  --arena: #e8dcc6;
+  --terracota: #b5653a;
+  --terracota-osc: #8f4a26;
+  --azafran: #d9962b;
+  --salvia: #5f7a64;
+  --tinta: #2d2a26;
+  --tinta-suave: #5c554c;
+  --blanco: #fffdf9;
+  --radio: 14px;
+  --sombra: 0 6px 24px rgba(60, 40, 20, 0.08);
+  --ancho: 1120px;
+  --serif: 'Cormorant Garamond', Georgia, serif;
+  --sans: 'Nunito Sans', system-ui, -apple-system, 'Segoe UI', sans-serif;
+}
+
+*,
+*::before,
+*::after { box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  margin: 0;
+  background: var(--crema);
+  color: var(--tinta);
+  font-family: var(--sans);
+  font-size: 1.0625rem;
+  line-height: 1.65;
+  -webkit-font-smoothing: antialiased;
+}
+
+img { max-width: 100%; height: auto; display: block; }
+
+a { color: var(--terracota-osc); text-underline-offset: 3px; }
+a:hover { color: var(--terracota); }
+
+h1, h2, h3 {
+  font-family: var(--serif);
+  font-weight: 600;
+  line-height: 1.15;
+  color: var(--tinta);
+  margin: 0 0 0.5em;
+}
+h1 { font-size: clamp(2.4rem, 6vw, 3.8rem); }
+h2 { font-size: clamp(1.9rem, 4vw, 2.6rem); }
+h3 { font-size: 1.5rem; }
+
+p { margin: 0 0 1em; }
+
+.contenedor { width: 100%; max-width: var(--ancho); margin: 0 auto; padding: 0 16px; }
+@media (min-width: 720px) { .contenedor { padding: 0 32px; } }
+
+.seccion { padding: 64px 0; }
+.seccion--alt { background: var(--crema-2); }
+@media (min-width: 720px) { .seccion { padding: 96px 0; } }
+
+.eyebrow {
+  display: inline-block;
+  font-size: 0.8rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--terracota);
+  font-weight: 700;
+  margin-bottom: 0.6rem;
+}
+
+.lead { font-size: 1.2rem; color: var(--tinta-suave); max-width: 46rem; }
+
+.encabezado-seccion { margin-bottom: 40px; }
+.encabezado-seccion--centro { text-align: center; }
+.encabezado-seccion--centro .lead { margin-left: auto; margin-right: auto; }
+
+/* Botones */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.8rem 1.5rem;
+  border-radius: 999px;
+  font-weight: 700;
+  font-size: 1rem;
+  text-decoration: none;
+  border: 2px solid transparent;
+  transition: background 0.2s, color 0.2s, transform 0.2s;
+  cursor: pointer;
+}
+.btn:hover { transform: translateY(-1px); }
+.btn--primario { background: var(--terracota); color: var(--blanco); }
+.btn--primario:hover { background: var(--terracota-osc); color: var(--blanco); }
+.btn--borde { border-color: var(--terracota); color: var(--terracota-osc); background: transparent; }
+.btn--borde:hover { background: var(--terracota); color: var(--blanco); }
+.btn--wa { background: #25d366; color: #fff; }
+.btn--wa:hover { background: #1ebe5a; color: #fff; }
+.acciones { display: flex; flex-wrap: wrap; gap: 12px; }
+
+/* Tarjetas */
+.tarjeta {
+  background: var(--blanco);
+  border-radius: var(--radio);
+  box-shadow: var(--sombra);
+  overflow: hidden;
+}
+
+.grid { display: grid; gap: 24px; }
+@media (min-width: 720px) {
+  .grid--2 { grid-template-columns: repeat(2, 1fr); }
+  .grid--3 { grid-template-columns: repeat(3, 1fr); }
+}
+
+/* Contenido largo (markdown) */
+.prosa { max-width: 44rem; }
+.prosa h2 { font-size: 2rem; margin-top: 1.6em; }
+.prosa h3 { margin-top: 1.4em; }
+.prosa ul, .prosa ol { padding-left: 1.3em; margin: 0 0 1em; }
+.prosa li { margin-bottom: 0.35em; }
+.prosa blockquote {
+  margin: 1.5em 0;
+  padding: 0.5em 1.25em;
+  border-left: 3px solid var(--azafran);
+  font-family: var(--serif);
+  font-size: 1.4rem;
+  font-style: italic;
+  color: var(--tinta-suave);
+}
+.prosa img { border-radius: var(--radio); margin: 1.5em 0; }
+
+/* Cabecera de página interna */
+.cabecera-pagina {
+  padding: 56px 0 40px;
+  background:
+    radial-gradient(circle at 85% 20%, rgba(217, 150, 43, 0.18), transparent 45%),
+    radial-gradient(circle at 10% 90%, rgba(95, 122, 100, 0.14), transparent 40%),
+    var(--crema-2);
+}
+@media (min-width: 720px) { .cabecera-pagina { padding: 88px 0 64px; } }
+.cabecera-pagina h1 { margin-bottom: 0.3em; }
+
+.imagen-redonda { border-radius: var(--radio); box-shadow: var(--sombra); width: 100%; object-fit: cover; }
+
+.vacio { color: var(--tinta-suave); font-style: italic; }
+
+.sr-only {
+  position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
+  overflow: hidden; clip: rect(0, 0, 0, 0); border: 0;
+}

@@ -1,0 +1,34 @@
+{
+  "intro": "Elegí el plan que mejor se adapte a tu ritmo. Todos los planes son mensuales y podés combinar cualquier clase de la grilla.",
+  "planes": [
+    {
+      "nombre": "Clase suelta",
+      "precio": "$ 8.000",
+      "periodo": "por clase",
+      "detalle": ["Cualquier clase de la grilla", "Ideal para conocer el centro"],
+      "destacado": false
+    },
+    {
+      "nombre": "1 vez por semana",
+      "precio": "$ 25.000",
+      "periodo": "por mes",
+      "detalle": ["4 clases al mes", "Recuperás clases dentro del mes"],
+      "destacado": false
+    },
+    {
+      "nombre": "2 veces por semana",
+      "precio": "$ 42.000",
+      "periodo": "por mes",
+      "detalle": ["8 clases al mes", "Recuperás clases dentro del mes", "El más elegido"],
+      "destacado": true
+    },
+    {
+      "nombre": "Libre",
+      "precio": "$ 55.000",
+      "periodo": "por mes",
+      "detalle": ["Todas las clases que quieras", "Incluye meditación"],
+      "destacado": false
+    }
+  ],
+  "nota": "Precios vigentes. Consultá descuentos por pago en efectivo o transferencia."
+}

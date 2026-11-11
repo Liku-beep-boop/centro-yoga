@@ -1,0 +1,23 @@
+---
+import Base from '../../layouts/Base.astro';
+import CabeceraPagina from '../../components/CabeceraPagina.astro';
+import TarjetaEntrada from '../../components/TarjetaEntrada.astro';
+import { entradasPublicadas } from '../../lib/utils';
+
+const entradas = await entradasPublicadas();
+---
+
+<Base titulo="Blog" descripcion="Novedades, reflexiones y prácticas para el día a día.">
+  <CabeceraPagina eyebrow="Blog" titulo="Novedades y reflexiones" subtitulo="Lo que pasa en el centro y en la práctica." />
+  <section class="seccion">
+    <div class="contenedor">
+      {entradas.length === 0 ? (
+        <p class="vacio">Todavía no hay entradas publicadas.</p>
+      ) : (
+        <div class="grid grid--3">
+          {entradas.map((e) => <TarjetaEntrada entrada={e} />)}
+        </div>
+      )}
+    </div>
+  </section>
+</Base>

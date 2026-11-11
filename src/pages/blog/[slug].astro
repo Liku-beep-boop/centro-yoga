@@ -1,0 +1,36 @@
+---
+import Base from '../../layouts/Base.astro';
+import { render } from 'astro:content';
+import { entradasPublicadas, fmtFecha } from '../../lib/utils';
+
+export async function getStaticPaths() {
+  const entradas = await entradasPublicadas();
+  return entradas.map((entrada) => ({ params: { slug: entrada.id }, props: { entrada } }));
+}
+
+const { entrada } = Astro.props;
+const { Content } = await render(entrada);
+const d = entrada.data;
+---
+
+<Base titulo={d.titulo} descripcion={d.resumen} imagen={d.portada}>
+  <article class="seccion">
+    <div class="contenedor articulo">
+      <a href="/blog" class="volver">← Volver al blog</a>
+      <time datetime={d.fecha.toISOString().slice(0, 10)}>{fmtFecha(d.fecha)}</time>
+      <h1>{d.titulo}</h1>
+      {d.resumen && <p class="lead">{d.resumen}</p>}
+      {d.portada && <img src={d.portada} alt="" class="imagen-redonda portada" />}
+      <div class="prosa">
+        <Content />
+      </div>
+    </div>
+  </article>
+</Base>
+
+<style>
+  .articulo { max-width: 780px; }
+  .volver { display: inline-block; margin-bottom: 24px; font-weight: 600; text-decoration: none; }
+  time { display: block; color: var(--tinta-suave); margin-bottom: 8px; }
+  .portada { margin: 32px 0; }
+</style>

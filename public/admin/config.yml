@@ -1,0 +1,192 @@
+# Configuración del panel (Sveltia CMS) — https://github.com/sveltia/sveltia-cms
+# Completar repo y base_url al hacer el deploy (ver README.md).
+backend:
+  name: github
+  repo: USUARIO_GITHUB/NOMBRE_REPO
+  branch: main
+  base_url: https://sveltia-cms-auth.USUARIO.workers.dev
+  commit_messages:
+    create: "Nuevo: {{collection}} «{{slug}}»"
+    update: "Actualizado: {{collection}} «{{slug}}»"
+    delete: "Borrado: {{collection}} «{{slug}}»"
+    uploadMedia: "Imagen subida: {{path}}"
+    deleteMedia: "Imagen borrada: {{path}}"
+
+site_url: https://www.ejemplo.com.ar
+display_url: https://www.ejemplo.com.ar
+logo_url: /favicon.svg
+
+media_folder: public/uploads
+public_folder: /uploads
+
+collections:
+  # ───────────────────────── BLOG ─────────────────────────
+  - name: blog
+    label: Entradas del blog
+    label_singular: Entrada
+    description: Novedades y reflexiones que aparecen en la sección Blog.
+    folder: src/content/blog
+    create: true
+    extension: md
+    format: frontmatter
+    identifier_field: titulo
+    slug: "{{slug}}"
+    summary: "{{fecha}} — {{titulo}}"
+    sortable_fields: [fecha, titulo]
+    fields:
+      - { label: Título, name: titulo, widget: string }
+      - label: Fecha
+        name: fecha
+        widget: datetime
+        time_format: false
+        format: YYYY-MM-DD
+        date_format: DD/MM/YYYY
+        default: "{{now}}"
+      - { label: Resumen (aparece en la tarjeta), name: resumen, widget: text, required: false }
+      - { label: Imagen de portada, name: portada, widget: image, required: false }
+      - { label: Borrador (no se publica todavía), name: borrador, widget: boolean, default: false, required: false }
+      - { label: Texto, name: body, widget: markdown }
+
+  # ──────────────────── TALLERES / EVENTOS ────────────────────
+  - name: eventos
+    label: Talleres y eventos
+    label_singular: Evento
+    description: Talleres, retiros y encuentros con fecha. Los que ya pasaron se ocultan solos de la web.
+    folder: src/content/eventos
+    create: true
+    extension: md
+    format: frontmatter
+    identifier_field: titulo
+    slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
+    summary: "{{fecha}} — {{titulo}}"
+    sortable_fields: [fecha, titulo]
+    fields:
+      - { label: Nombre del evento, name: titulo, widget: string }
+      - label: Fecha
+        name: fecha
+        widget: datetime
+        time_format: false
+        format: YYYY-MM-DD
+        date_format: DD/MM/YYYY
+      - { label: Hora de inicio (ej. 10:00), name: hora, widget: string, required: false }
+      - { label: Hora de fin (ej. 13:00), name: hora_fin, widget: string, required: false }
+      - { label: Lugar, name: lugar, widget: string, required: false, default: En el centro }
+      - { label: Precio (ej. $ 20.000 o Gratuito), name: precio, widget: string, required: false }
+      - { label: Imagen, name: imagen, widget: image, required: false }
+      - label: Link de inscripción (si se deja vacío, el botón abre WhatsApp)
+        name: inscripcion
+        widget: string
+        required: false
+      - { label: Descripción, name: body, widget: text, required: false }
+
+  # ───────────────────── PÁGINAS DE TEXTO ─────────────────────
+  - name: paginas
+    label: Páginas
+    description: Textos de las páginas "Quién soy" y "Formación".
+    files:
+      - name: sobre
+        label: Quién soy
+        file: src/content/paginas/sobre.md
+        fields: &campos_pagina
+          - { label: Título, name: titulo, widget: string }
+          - { label: Subtítulo, name: subtitulo, widget: text, required: false }
+          - { label: Foto, name: imagen, widget: image, required: false }
+          - { label: Texto, name: body, widget: markdown }
+      - name: formacion
+        label: Formación de profesoras
+        file: src/content/paginas/formacion.md
+        fields: *campos_pagina
+
+  # ───────────────── HORARIOS, PRECIOS, LIBRO, DATOS ─────────────────
+  - name: configuracion
+    label: Horarios, precios y datos
+    description: Grilla semanal, precios, libro y datos de contacto.
+    files:
+      - name: horarios
+        label: Horarios (grilla semanal)
+        file: src/data/horarios.json
+        fields:
+          - { label: Aviso arriba de la grilla, name: aviso, widget: text, required: false }
+          - label: Clases
+            name: clases
+            widget: list
+            label_singular: clase
+            summary: "{{fields.dia}} {{fields.inicio}} — {{fields.clase}}"
+            fields:
+              - label: Día
+                name: dia
+                widget: select
+                options: [Lunes, Martes, Miércoles, Jueves, Viernes, Sábado, Domingo]
+              - { label: Hora de inicio (ej. 08:00), name: inicio, widget: string }
+              - { label: Hora de fin (ej. 09:15), name: fin, widget: string, required: false }
+              - { label: Clase, name: clase, widget: string }
+              - { label: Profesora, name: profesora, widget: string, required: false }
+              - { label: Nivel, name: nivel, widget: string, required: false, default: Todos los niveles }
+
+      - name: precios
+        label: Precios
+        file: src/data/precios.json
+        fields:
+          - { label: Texto introductorio, name: intro, widget: text, required: false }
+          - label: Planes
+            name: planes
+            widget: list
+            label_singular: plan
+            summary: "{{fields.nombre}} — {{fields.precio}}"
+            fields:
+              - { label: Nombre del plan, name: nombre, widget: string }
+              - { label: Precio (ej. $ 25.000), name: precio, widget: string }
+              - { label: Período (ej. por mes), name: periodo, widget: string, required: false }
+              - label: Detalle (una línea por ítem)
+                name: detalle
+                widget: list
+                required: false
+                field: { label: Ítem, name: item, widget: string }
+              - { label: Destacar este plan, name: destacado, widget: boolean, default: false, required: false }
+          - { label: Nota al pie, name: nota, widget: text, required: false }
+
+      - name: libro
+        label: El libro
+        file: src/data/libro.json
+        fields:
+          - { label: Título, name: titulo, widget: string }
+          - { label: Subtítulo, name: subtitulo, widget: string, required: false }
+          - { label: Portada, name: portada, widget: image, required: false }
+          - { label: Descripción (dejar una línea en blanco entre párrafos), name: descripcion, widget: text }
+          - { label: Frase destacada, name: cita, widget: text, required: false }
+          - label: Botones de compra
+            name: links
+            widget: list
+            label_singular: botón
+            summary: "{{fields.texto}}"
+            fields:
+              - { label: Texto del botón, name: texto, widget: string }
+              - { label: Link (URL), name: url, widget: string }
+
+      - name: sitio
+        label: Datos del sitio y contacto
+        file: src/data/sitio.json
+        fields:
+          - { label: Nombre del centro, name: nombre, widget: string }
+          - { label: Frase principal (portada), name: eslogan, widget: string }
+          - { label: Descripción corta (portada y Google), name: descripcion, widget: text }
+          - { label: Nombre de la profesora, name: profesora, widget: string, required: false }
+          - { label: Foto de fondo de la portada, name: hero_imagen, widget: image, required: false }
+          - label: WhatsApp (con código de país, sin + ni espacios. Ej. 5491123456789)
+            name: whatsapp
+            widget: string
+            required: false
+          - { label: Mensaje inicial de WhatsApp, name: whatsapp_mensaje, widget: string, required: false }
+          - { label: Email, name: email, widget: string, required: false }
+          - { label: Instagram (link completo), name: instagram, widget: string, required: false }
+          - { label: Facebook (link completo), name: facebook, widget: string, required: false }
+          - { label: YouTube (link completo), name: youtube, widget: string, required: false }
+          - { label: Dirección, name: direccion, widget: string, required: false }
+          - label: Mapa (link "src" del iframe de Google Maps → Compartir → Insertar mapa)
+            name: mapa_embed
+            widget: string
+            required: false
+          - label: Clave de Web3Forms (formulario de contacto; vacío = sin formulario)
+            name: web3forms_key
+            widget: string
+            required: false

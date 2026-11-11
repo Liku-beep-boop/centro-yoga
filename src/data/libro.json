@@ -1,0 +1,10 @@
+{
+  "titulo": "Título del libro",
+  "subtitulo": "Subtítulo del libro",
+  "portada": "",
+  "descripcion": "Acá va la descripción del libro: de qué trata, qué va a encontrar quien lo lea y por qué fue escrito.\n\nPodés escribir varios párrafos dejando una línea en blanco entre ellos.",
+  "cita": "Una frase destacada del libro.",
+  "links": [
+    { "texto": "Comprar el libro", "url": "https://wa.me/5491100000000" }
+  ]
+}

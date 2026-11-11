@@ -1,0 +1,29 @@
+---
+import Base from '../layouts/Base.astro';
+import CabeceraPagina from '../components/CabeceraPagina.astro';
+import TablaPrecios from '../components/TablaPrecios.astro';
+import precios from '../data/precios.json';
+import sitio from '../data/sitio.json';
+import { waLink } from '../lib/utils';
+
+const wa = waLink(sitio.whatsapp, '¡Hola! Quisiera consultar por los planes y precios.');
+---
+
+<Base titulo="Precios" descripcion="Planes y precios de las clases de yoga.">
+  <CabeceraPagina eyebrow="Planes" titulo="Precios" subtitulo={precios.intro} />
+
+  <section class="seccion">
+    <div class="contenedor">
+      <TablaPrecios />
+      {precios.nota && <p class="nota">{precios.nota}</p>}
+      <div class="acciones" style="margin-top: 24px">
+        <a href="/horarios" class="btn btn--primario">Ver horarios</a>
+        {wa && <a href={wa} class="btn btn--wa" target="_blank" rel="noopener">Consultar por WhatsApp</a>}
+      </div>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .nota { margin-top: 28px; color: var(--tinta-suave); font-size: 0.95rem; }
+</style>

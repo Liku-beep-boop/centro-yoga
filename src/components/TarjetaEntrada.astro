@@ -1,0 +1,41 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import { fmtFecha } from '../lib/utils';
+
+interface Props { entrada: CollectionEntry<'blog'> }
+const { entrada } = Astro.props;
+const d = entrada.data;
+---
+
+<article class="entrada tarjeta">
+  <a href={`/blog/${entrada.id}`} class="entrada__link">
+    {d.portada ? (
+      <img src={d.portada} alt="" class="entrada__img" loading="lazy" />
+    ) : (
+      <div class="entrada__img entrada__img--vacia" aria-hidden="true"></div>
+    )}
+    <div class="entrada__cuerpo">
+      <time datetime={d.fecha.toISOString().slice(0, 10)}>{fmtFecha(d.fecha)}</time>
+      <h3>{d.titulo}</h3>
+      {d.resumen && <p>{d.resumen}</p>}
+      <span class="entrada__mas">Leer más →</span>
+    </div>
+  </a>
+</article>
+
+<style>
+  .entrada__link { display: flex; flex-direction: column; height: 100%; color: inherit; text-decoration: none; }
+  .entrada__img { aspect-ratio: 16 / 10; width: 100%; object-fit: cover; }
+  .entrada__img--vacia {
+    background:
+      radial-gradient(circle at 30% 40%, rgba(217, 150, 43, 0.45), transparent 50%),
+      radial-gradient(circle at 75% 70%, rgba(95, 122, 100, 0.4), transparent 50%),
+      var(--arena);
+  }
+  .entrada__cuerpo { padding: 20px 22px 24px; display: flex; flex-direction: column; flex: 1; }
+  time { font-size: 0.85rem; color: var(--tinta-suave); }
+  h3 { margin: 0.3em 0 0.4em; }
+  p { color: var(--tinta-suave); }
+  .entrada__mas { margin-top: auto; font-weight: 700; color: var(--terracota-osc); }
+  .entrada__link:hover h3 { color: var(--terracota-osc); }
+</style>

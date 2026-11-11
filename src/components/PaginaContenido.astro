@@ -1,0 +1,31 @@
+---
+// Renderiza una página editable desde el panel (colección "paginas").
+import Base from '../layouts/Base.astro';
+import CabeceraPagina from './CabeceraPagina.astro';
+import { getEntry, render } from 'astro:content';
+
+interface Props { id: string; eyebrow?: string }
+const { id, eyebrow } = Astro.props;
+const pagina = await getEntry('paginas', id);
+if (!pagina) throw new Error(`Falta la página src/content/paginas/${id}.md`);
+const { Content } = await render(pagina);
+const { titulo, subtitulo, imagen } = pagina.data;
+---
+
+<Base titulo={titulo} descripcion={subtitulo} imagen={imagen}>
+  <CabeceraPagina eyebrow={eyebrow} titulo={titulo} subtitulo={subtitulo} />
+  <section class="seccion">
+    <div class:list={['contenedor', { 'con-imagen': imagen }]}>
+      {imagen && <img src={imagen} alt="" class="imagen-redonda" />}
+      <div class="prosa">
+        <Content />
+      </div>
+    </div>
+    <div class="contenedor"><slot /></div>
+  </section>
+</Base>
+
+<style>
+  .con-imagen { display: grid; gap: 40px; align-items: start; }
+  @media (min-width: 900px) { .con-imagen { grid-template-columns: 1fr 1.4fr; } }
+</style>

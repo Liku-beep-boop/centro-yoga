@@ -1,0 +1,20 @@
+# Reconstruye la web todos los días a las 03:00 (hora Argentina) para que los
+# eventos que ya pasaron desaparezcan solos. Requiere el secreto CF_DEPLOY_HOOK
+# (URL del "Deploy hook" de Cloudflare Pages). Ver README.md.
+name: Rebuild diario
+
+on:
+  schedule:
+    - cron: '0 6 * * *' # 06:00 UTC = 03:00 ART
+  workflow_dispatch:
+
+jobs:
+  rebuild:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Disparar deploy en Cloudflare Pages
+        env:
+          HOOK: ${{ secrets.CF_DEPLOY_HOOK }}
+        run: |
+          if [ -z "$HOOK" ]; then echo "Falta el secreto CF_DEPLOY_HOOK"; exit 1; fi
+          curl -fsS -X POST "$HOOK"

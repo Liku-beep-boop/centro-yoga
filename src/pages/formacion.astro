@@ -1,0 +1,15 @@
+---
+import PaginaContenido from '../components/PaginaContenido.astro';
+import sitio from '../data/sitio.json';
+import { waLink } from '../lib/utils';
+
+const wa = waLink(sitio.whatsapp, '¡Hola! Quisiera recibir información sobre la formación de profesoras.');
+---
+
+<PaginaContenido id="formacion" eyebrow="Profesorado">
+  {wa && (
+    <p style="margin-top: 32px">
+      <a href={wa} class="btn btn--wa" target="_blank" rel="noopener">Pedir el programa por WhatsApp</a>
+    </p>
+  )}
+</PaginaContenido>
