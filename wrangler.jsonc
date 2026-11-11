@@ -1,0 +1,21 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "centro-yoga",
+  "main": "worker/index.js",
+  "compatibility_date": "2026-11-10",
+  "observability": { "enabled": true },
+  "assets": {
+    "directory": "./dist",
+    "binding": "ASSETS",
+    "not_found_handling": "404-page",
+    // El Worker revisa cada pedido antes de servir la web (necesario para el modo mantenimiento).
+    "run_worker_first": true
+  },
+  "vars": {
+    // "true" = muestra "web en preparación" a quien no tenga el link de acceso.
+    // "false" = web abierta al público. Cambiar, hacer commit y push.
+    "MANTENIMIENTO": "true"
+  }
+  // Secreto (no va acá): CLAVE_ACCESO → cargarlo en Cloudflare:
+  // Workers & Pages → centro-yoga → Settings → Variables and Secrets → Add → tipo Secret.
+}

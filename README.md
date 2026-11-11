@@ -68,4 +68,17 @@ git push -u origin main
 ### 5. Formulario de contacto (opcional)
 Crear una clave gratis en [web3forms.com](https://web3forms.com) con el email donde llegan las consultas y pegarla en el panel → *Datos del sitio → Clave de Web3Forms*. Sin clave, la página de contacto muestra solo WhatsApp, email y dirección.
 
+## Modo "web en preparación"
+
+La web se sirve con un Worker (`worker/index.js`, config en `wrangler.jsonc`) que puede mostrar una página de "Estamos preparando nuestra nueva web" (HTTP 503, no indexada) a todo el público, excepto a quien tenga acceso.
+
+- **Activar / desactivar:** en `wrangler.jsonc` cambiar `"MANTENIMIENTO": "true"` / `"false"`, hacer commit y push. Se aplica en ~1 minuto.
+- **Clave de acceso:** Cloudflare → Workers & Pages → `centro-yoga` → Settings → Variables and Secrets → Add → tipo **Secret**, nombre `CLAVE_ACCESO`. Si no está cargada, no entra nadie.
+- **Dar acceso a alguien:** pasarle `https://centroargentinoyogareiki.com.ar/?acceso=LA_CLAVE`. Queda habilitado en ese navegador por 30 días.
+- **Revocar todos los accesos:** cambiar el valor de `CLAVE_ACCESO`.
+- **Salir:** `/?acceso=salir`.
+- `/admin/` siempre queda accesible (igual pide login con GitHub).
+
+Probar en local: crear `.dev.vars` con `CLAVE_ACCESO=prueba`, `npm run build` y `npx wrangler dev`.
+
 Guía para quien edita la web: [GUIA-PANEL.md](GUIA-PANEL.md).
