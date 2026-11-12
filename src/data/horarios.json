@@ -19,17 +19,10 @@
   ],
   "miercoles": [
     {
-      "inicio": "08:00",
-      "fin": "09:15",
-      "clase": "Hatha Yoga",
-      "profesora": "Profesora 1",
-      "nivel": "Todos los niveles"
-    },
-    {
-      "inicio": "18:30",
-      "fin": "19:45",
-      "clase": "Meditación y pranayama",
-      "profesora": "Profesora 1",
+      "inicio": "16:00",
+      "fin": "17:00",
+      "clase": "Yoga",
+      "profesora": "Maha Devi",
       "nivel": "Todos los niveles"
     }
   ],
