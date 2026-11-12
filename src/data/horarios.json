@@ -6,7 +6,7 @@
       "inicio": "08:30",
       "fin": "09:30",
       "clase": "Yoga",
-      "profesora": "Edith Lodoli",
+      "profesora": "Maha Devi",
       "nivel": "Todos los niveles"
     },
     {
@@ -31,7 +31,7 @@
       "inicio": "08:30",
       "fin": "09:30",
       "clase": "Yoga",
-      "profesora": "Edith Lodoli",
+      "profesora": "Maha Devi",
       "nivel": "Todos los niveles"
     },
     {
@@ -53,10 +53,10 @@
   ],
   "sabado": [
     {
-      "inicio": "10:00",
-      "fin": "11:30",
-      "clase": "Clase abierta",
-      "profesora": "Profesora 1",
+      "inicio": "16:00",
+      "fin": "17:00",
+      "clase": "Yoga",
+      "profesora": "Maha Devi",
       "nivel": "Todos los niveles"
     }
   ],
