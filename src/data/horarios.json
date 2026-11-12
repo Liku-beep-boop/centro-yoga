@@ -1,21 +1,6 @@
 {
   "aviso": "Las clases duran entre 60 y 90 minutos. Traé ropa cómoda; el centro tiene mats para prestar.",
-  "lunes": [
-    {
-      "inicio": "08:00",
-      "fin": "09:15",
-      "clase": "Hatha Yoga",
-      "profesora": "Profesora 1",
-      "nivel": "Todos los niveles"
-    },
-    {
-      "inicio": "18:30",
-      "fin": "19:45",
-      "clase": "Vinyasa",
-      "profesora": "Profesora 2",
-      "nivel": "Intermedio"
-    }
-  ],
+  "lunes": [],
   "martes": [
     {
       "inicio": "08:30",
