@@ -1,5 +1,4 @@
-# Configuración del panel (Sveltia CMS) — https://github.com/sveltia/sveltia-cms
-# Completar repo y base_url al hacer el deploy (ver README.md).
+# Configuración del panel (Sveltia CMS) — https://sveltiacms.app/en/docs
 backend:
   name: github
   repo: Liku-beep-boop/centro-yoga
@@ -19,19 +18,138 @@ logo_url: /favicon.svg
 media_folder: public/uploads
 public_folder: /uploads
 
+# ─────────── Accesos directos en la barra lateral (un solo archivo cada uno) ───────────
+singletons:
+  - name: horarios
+    label: Horarios de clases
+    icon: schedule
+    file: src/data/horarios.json
+    fields:
+      - label: Aviso arriba de la grilla
+        name: aviso
+        widget: text
+        required: false
+        hint: Aparece debajo del título "Horarios" en la web.
+      # Una lista por día. Las clases ya cargadas aparecen plegadas en una línea ("08:00 · Hatha Yoga").
+      - label: Lunes
+        name: lunes
+        widget: list
+        label_singular: clase
+        required: false
+        collapsed: auto
+        summary: "{{fields.inicio}} · {{fields.clase}}"
+        hint: "Tocá **Agregar clase** para sumar una. Para repetir una clase en otro día: menú **⋮** de la clase → **Copiar**, y en el otro día **Pegar**. El orden no importa: la web ordena por hora."
+        fields: &campos_clase
+          - { label: Empieza, name: inicio, widget: datetime, type: time, format: HH:mm }
+          - { label: Termina, name: fin, widget: datetime, type: time, format: HH:mm, required: false }
+          - { label: Clase, name: clase, widget: string, hint: "Ej. Hatha Yoga, Vinyasa, Meditación" }
+          - { label: Profesora, name: profesora, widget: string, required: false }
+          - label: Nivel
+            name: nivel
+            widget: select
+            options: [Todos los niveles, Principiantes, Intermedio, Avanzado]
+            default: Todos los niveles
+            required: false
+      - { label: Martes, name: martes, widget: list, label_singular: clase, required: false, collapsed: auto, summary: "{{fields.inicio}} · {{fields.clase}}", fields: *campos_clase }
+      - { label: Miércoles, name: miercoles, widget: list, label_singular: clase, required: false, collapsed: auto, summary: "{{fields.inicio}} · {{fields.clase}}", fields: *campos_clase }
+      - { label: Jueves, name: jueves, widget: list, label_singular: clase, required: false, collapsed: auto, summary: "{{fields.inicio}} · {{fields.clase}}", fields: *campos_clase }
+      - { label: Viernes, name: viernes, widget: list, label_singular: clase, required: false, collapsed: auto, summary: "{{fields.inicio}} · {{fields.clase}}", fields: *campos_clase }
+      - { label: Sábado, name: sabado, widget: list, label_singular: clase, required: false, collapsed: auto, summary: "{{fields.inicio}} · {{fields.clase}}", fields: *campos_clase }
+      - { label: Domingo, name: domingo, widget: list, label_singular: clase, required: false, collapsed: auto, summary: "{{fields.inicio}} · {{fields.clase}}", fields: *campos_clase }
+
+  - name: precios
+    label: Precios
+    icon: payments
+    file: src/data/precios.json
+    fields:
+      - { label: Texto introductorio, name: intro, widget: text, required: false }
+      - label: Planes
+        name: planes
+        widget: list
+        label_singular: plan
+        collapsed: auto
+        summary: "{{fields.nombre}} — {{fields.precio}}{{fields.destacado | ternary(' ★ Recomendado', '')}}"
+        fields:
+          - { label: Nombre del plan, name: nombre, widget: string, hint: "Ej. 2 veces por semana" }
+          - { label: Precio, name: precio, widget: string, hint: "Tal cual se muestra. Ej. $ 25.000" }
+          - { label: Período, name: periodo, widget: string, required: false, hint: "Ej. por mes, por clase" }
+          - label: Qué incluye
+            name: detalle
+            widget: list
+            required: false
+            label_singular: ítem
+            field: { label: Ítem, name: item, widget: string }
+          - { label: Marcar como "Recomendado", name: destacado, widget: boolean, default: false, required: false }
+      - { label: Nota al pie, name: nota, widget: text, required: false }
+
+  - name: libro
+    label: El libro
+    icon: menu_book
+    file: src/data/libro.json
+    fields:
+      - { label: Título, name: titulo, widget: string }
+      - { label: Subtítulo, name: subtitulo, widget: string, required: false }
+      - { label: Portada, name: portada, widget: image, required: false }
+      - { label: Descripción, name: descripcion, widget: text, hint: "Dejá una línea en blanco entre párrafos." }
+      - { label: Frase destacada, name: cita, widget: text, required: false }
+      - label: Botones de compra
+        name: links
+        widget: list
+        label_singular: botón
+        collapsed: auto
+        summary: "{{fields.texto}}"
+        fields:
+          - { label: Texto del botón, name: texto, widget: string, hint: "Ej. Comprar en Mercado Libre" }
+          - { label: Link, name: url, widget: string, type: url }
+
+  - divider: true
+
+  - name: sitio
+    label: Datos del sitio y contacto
+    icon: settings
+    file: src/data/sitio.json
+    fields:
+      - { label: Nombre del centro, name: nombre, widget: string }
+      - { label: Frase principal (portada), name: eslogan, widget: string }
+      - { label: Descripción corta, name: descripcion, widget: text, hint: "Aparece en la portada y en Google." }
+      - { label: Nombre de la profesora, name: profesora, widget: string, required: false }
+      - { label: Foto de fondo de la portada, name: hero_imagen, widget: image, required: false }
+      - label: WhatsApp
+        name: whatsapp
+        widget: string
+        required: false
+        hint: "Con código de país, sin + ni espacios. Ej. celular 11 5567-5161 → **5491155675161**"
+      - { label: Mensaje inicial de WhatsApp, name: whatsapp_mensaje, widget: string, required: false }
+      - { label: Email, name: email, widget: string, required: false, hint: "Si queda vacío, no se muestra en la web." }
+      - { label: Instagram, name: instagram, widget: string, required: false, hint: "Link completo, empezando con https://" }
+      - { label: Facebook, name: facebook, widget: string, required: false, hint: "Link completo, empezando con https://" }
+      - { label: YouTube, name: youtube, widget: string, required: false, hint: "Link completo, empezando con https://" }
+      - { label: Dirección, name: direccion, widget: string, required: false }
+      - label: Mapa
+        name: mapa_embed
+        widget: string
+        required: false
+        hint: "Link del mapa de Google para mostrar en Contacto. Vacío = sin mapa."
+      - label: Clave de Web3Forms
+        name: web3forms_key
+        widget: string
+        required: false
+        hint: "Para el formulario de contacto. Vacío = sin formulario."
+
 collections:
   # ───────────────────────── BLOG ─────────────────────────
   - name: blog
     label: Entradas del blog
     label_singular: Entrada
     description: Novedades y reflexiones que aparecen en la sección Blog.
+    icon: edit_note
     folder: src/content/blog
     create: true
     extension: md
     format: frontmatter
     identifier_field: titulo
     slug: "{{slug}}"
-    summary: "{{fecha}} — {{titulo}}"
+    summary: "{{fecha | date('DD/MM/YYYY')}} — {{titulo}}"
     sortable_fields: [fecha, titulo]
     fields:
       - { label: Título, name: titulo, widget: string }
@@ -39,10 +157,10 @@ collections:
         name: fecha
         widget: datetime
         time_format: false
-        format: YYYY-MM-DD
         date_format: DD/MM/YYYY
+        format: YYYY-MM-DD
         default: "{{now}}"
-      - { label: Resumen (aparece en la tarjeta), name: resumen, widget: text, required: false }
+      - { label: Resumen, name: resumen, widget: text, required: false, hint: "Aparece en la tarjeta del blog." }
       - { label: Imagen de portada, name: portada, widget: image, required: false }
       - { label: Borrador (no se publica todavía), name: borrador, widget: boolean, default: false, required: false }
       - { label: Texto, name: body, widget: markdown }
@@ -52,13 +170,14 @@ collections:
     label: Talleres y eventos
     label_singular: Evento
     description: Talleres, retiros y encuentros con fecha. Los que ya pasaron se ocultan solos de la web.
+    icon: event
     folder: src/content/eventos
     create: true
     extension: md
     format: frontmatter
     identifier_field: titulo
     slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
-    summary: "{{fecha}} — {{titulo}}"
+    summary: "{{fecha | date('DD/MM/YYYY')}} — {{titulo}}"
     sortable_fields: [fecha, titulo]
     fields:
       - { label: Nombre del evento, name: titulo, widget: string }
@@ -66,23 +185,25 @@ collections:
         name: fecha
         widget: datetime
         time_format: false
-        format: YYYY-MM-DD
         date_format: DD/MM/YYYY
-      - { label: Hora de inicio (ej. 10:00), name: hora, widget: string, required: false }
-      - { label: Hora de fin (ej. 13:00), name: hora_fin, widget: string, required: false }
+        format: YYYY-MM-DD
+      - { label: Empieza, name: hora, widget: datetime, type: time, format: HH:mm, required: false }
+      - { label: Termina, name: hora_fin, widget: datetime, type: time, format: HH:mm, required: false }
       - { label: Lugar, name: lugar, widget: string, required: false, default: En el centro }
-      - { label: Precio (ej. $ 20.000 o Gratuito), name: precio, widget: string, required: false }
+      - { label: Precio, name: precio, widget: string, required: false, hint: "Ej. $ 20.000 o Gratuito" }
       - { label: Imagen, name: imagen, widget: image, required: false }
-      - label: Link de inscripción (si se deja vacío, el botón abre WhatsApp)
+      - label: Link de inscripción
         name: inscripcion
         widget: string
         required: false
+        hint: "Si queda vacío, el botón Inscribirme abre WhatsApp con un mensaje listo."
       - { label: Descripción, name: body, widget: text, required: false }
 
   # ───────────────────── PÁGINAS DE TEXTO ─────────────────────
   - name: paginas
     label: Páginas
     description: Textos de las páginas "Quién soy" y "Formación".
+    icon: article
     files:
       - name: sobre
         label: Quién soy
@@ -96,97 +217,3 @@ collections:
         label: Formación de profesoras
         file: src/content/paginas/formacion.md
         fields: *campos_pagina
-
-  # ───────────────── HORARIOS, PRECIOS, LIBRO, DATOS ─────────────────
-  - name: configuracion
-    label: Horarios, precios y datos
-    description: Grilla semanal, precios, libro y datos de contacto.
-    files:
-      - name: horarios
-        label: Horarios (grilla semanal)
-        file: src/data/horarios.json
-        fields:
-          - { label: Aviso arriba de la grilla, name: aviso, widget: text, required: false }
-          - label: Clases
-            name: clases
-            widget: list
-            label_singular: clase
-            summary: "{{fields.dia}} {{fields.inicio}} — {{fields.clase}}"
-            fields:
-              - label: Día
-                name: dia
-                widget: select
-                options: [Lunes, Martes, Miércoles, Jueves, Viernes, Sábado, Domingo]
-              - { label: Hora de inicio (ej. 08:00), name: inicio, widget: string }
-              - { label: Hora de fin (ej. 09:15), name: fin, widget: string, required: false }
-              - { label: Clase, name: clase, widget: string }
-              - { label: Profesora, name: profesora, widget: string, required: false }
-              - { label: Nivel, name: nivel, widget: string, required: false, default: Todos los niveles }
-
-      - name: precios
-        label: Precios
-        file: src/data/precios.json
-        fields:
-          - { label: Texto introductorio, name: intro, widget: text, required: false }
-          - label: Planes
-            name: planes
-            widget: list
-            label_singular: plan
-            summary: "{{fields.nombre}} — {{fields.precio}}"
-            fields:
-              - { label: Nombre del plan, name: nombre, widget: string }
-              - { label: Precio (ej. $ 25.000), name: precio, widget: string }
-              - { label: Período (ej. por mes), name: periodo, widget: string, required: false }
-              - label: Detalle (una línea por ítem)
-                name: detalle
-                widget: list
-                required: false
-                field: { label: Ítem, name: item, widget: string }
-              - { label: Destacar este plan, name: destacado, widget: boolean, default: false, required: false }
-          - { label: Nota al pie, name: nota, widget: text, required: false }
-
-      - name: libro
-        label: El libro
-        file: src/data/libro.json
-        fields:
-          - { label: Título, name: titulo, widget: string }
-          - { label: Subtítulo, name: subtitulo, widget: string, required: false }
-          - { label: Portada, name: portada, widget: image, required: false }
-          - { label: Descripción (dejar una línea en blanco entre párrafos), name: descripcion, widget: text }
-          - { label: Frase destacada, name: cita, widget: text, required: false }
-          - label: Botones de compra
-            name: links
-            widget: list
-            label_singular: botón
-            summary: "{{fields.texto}}"
-            fields:
-              - { label: Texto del botón, name: texto, widget: string }
-              - { label: Link (URL), name: url, widget: string }
-
-      - name: sitio
-        label: Datos del sitio y contacto
-        file: src/data/sitio.json
-        fields:
-          - { label: Nombre del centro, name: nombre, widget: string }
-          - { label: Frase principal (portada), name: eslogan, widget: string }
-          - { label: Descripción corta (portada y Google), name: descripcion, widget: text }
-          - { label: Nombre de la profesora, name: profesora, widget: string, required: false }
-          - { label: Foto de fondo de la portada, name: hero_imagen, widget: image, required: false }
-          - label: WhatsApp (con código de país, sin + ni espacios. Ej. 5491123456789)
-            name: whatsapp
-            widget: string
-            required: false
-          - { label: Mensaje inicial de WhatsApp, name: whatsapp_mensaje, widget: string, required: false }
-          - { label: Email, name: email, widget: string, required: false }
-          - { label: Instagram (link completo), name: instagram, widget: string, required: false }
-          - { label: Facebook (link completo), name: facebook, widget: string, required: false }
-          - { label: YouTube (link completo), name: youtube, widget: string, required: false }
-          - { label: Dirección, name: direccion, widget: string, required: false }
-          - label: Mapa (link "src" del iframe de Google Maps → Compartir → Insertar mapa)
-            name: mapa_embed
-            widget: string
-            required: false
-          - label: Clave de Web3Forms (formulario de contacto; vacío = sin formulario)
-            name: web3forms_key
-            widget: string
-            required: false

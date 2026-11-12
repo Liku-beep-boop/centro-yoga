@@ -1,8 +1,7 @@
 {
   "aviso": "Las clases duran entre 60 y 90 minutos. Traé ropa cómoda; el centro tiene mats para prestar.",
-  "clases": [
+  "lunes": [
     {
-      "dia": "Lunes",
       "inicio": "08:00",
       "fin": "09:15",
       "clase": "Hatha Yoga",
@@ -10,47 +9,15 @@
       "nivel": "Todos los niveles"
     },
     {
-      "dia": "Lunes",
       "inicio": "18:30",
       "fin": "19:45",
       "clase": "Vinyasa",
       "profesora": "Profesora 2",
       "nivel": "Intermedio"
-    },
+    }
+  ],
+  "martes": [
     {
-      "dia": "Martes",
-      "inicio": "08:30",
-      "fin": "9:30",
-      "clase": "Yoga",
-      "profesora": "Edith Lodoli",
-      "nivel": "Todos los niveles"
-    },
-    {
-      "dia": "Martes",
-      "inicio": "19:30",
-      "fin": "20:30",
-      "clase": "Yoga",
-      "profesora": "Edith Lodoli",
-      "nivel": "Todos los niveles"
-    },
-    {
-      "dia": "Miércoles",
-      "inicio": "08:00",
-      "fin": "09:15",
-      "clase": "Hatha Yoga",
-      "profesora": "Profesora 1",
-      "nivel": "Todos los niveles"
-    },
-    {
-      "dia": "Miércoles",
-      "inicio": "18:30",
-      "fin": "19:45",
-      "clase": "Meditación y pranayama",
-      "profesora": "Profesora 1",
-      "nivel": "Todos los niveles"
-    },
-    {
-      "dia": "Jueves",
       "inicio": "08:30",
       "fin": "09:30",
       "clase": "Yoga",
@@ -58,28 +25,62 @@
       "nivel": "Todos los niveles"
     },
     {
-      "dia": "Jueves",
+      "inicio": "19:30",
+      "fin": "20:30",
+      "clase": "Yoga",
+      "profesora": "Edith Lodoli",
+      "nivel": "Todos los niveles"
+    }
+  ],
+  "miercoles": [
+    {
+      "inicio": "08:00",
+      "fin": "09:15",
+      "clase": "Hatha Yoga",
+      "profesora": "Profesora 1",
+      "nivel": "Todos los niveles"
+    },
+    {
+      "inicio": "18:30",
+      "fin": "19:45",
+      "clase": "Meditación y pranayama",
+      "profesora": "Profesora 1",
+      "nivel": "Todos los niveles"
+    }
+  ],
+  "jueves": [
+    {
+      "inicio": "08:30",
+      "fin": "09:30",
+      "clase": "Yoga",
+      "profesora": "Edith Lodoli",
+      "nivel": "Todos los niveles"
+    },
+    {
       "inicio": "19:00",
       "fin": "20:00",
       "clase": "yoga",
       "profesora": "Edith Lodoli",
       "nivel": "Todos los niveles"
-    },
+    }
+  ],
+  "viernes": [
     {
-      "dia": "Viernes",
       "inicio": "08:00",
       "fin": "09:15",
       "clase": "Hatha Yoga",
       "profesora": "Profesora 3",
       "nivel": "Todos los niveles"
-    },
+    }
+  ],
+  "sabado": [
     {
-      "dia": "Sábado",
       "inicio": "10:00",
       "fin": "11:30",
       "clase": "Clase abierta",
       "profesora": "Profesora 1",
       "nivel": "Todos los niveles"
     }
-  ]
+  ],
+  "domingo": []
 }

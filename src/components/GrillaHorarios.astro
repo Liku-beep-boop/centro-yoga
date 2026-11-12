@@ -2,12 +2,16 @@
 import horarios from '../data/horarios.json';
 import { DIAS } from '../lib/utils';
 
-type Clase = { dia: string; inicio: string; fin?: string; clase: string; profesora?: string; nivel?: string };
-const clases = (horarios.clases ?? []) as Clase[];
+// horarios.json tiene una lista por día: { lunes: [...], martes: [...], ... }
+type Clase = { inicio?: string | null; fin?: string | null; clase?: string | null; profesora?: string | null; nivel?: string | null };
+const datos = horarios as unknown as Record<string, Clase[] | undefined>;
+const clave = (dia: string) => dia.toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '');
 
 const porDia = DIAS.map((dia) => ({
   dia,
-  clases: clases.filter((c) => c.dia === dia).sort((a, b) => a.inicio.localeCompare(b.inicio)),
+  clases: (datos[clave(dia)] ?? [])
+    .filter((c) => c && c.clase)
+    .sort((a, b) => (a.inicio ?? '').localeCompare(b.inicio ?? '')),
 })).filter((d) => d.clases.length > 0);
 ---
 

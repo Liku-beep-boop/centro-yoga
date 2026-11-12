@@ -25,10 +25,10 @@ npm run build    # genera dist/
 | Entradas del blog | `src/content/blog/*.md` | Entradas del blog |
 | Talleres / eventos | `src/content/eventos/*.md` | Talleres y eventos |
 | Quién soy / Formación | `src/content/paginas/*.md` | Páginas |
-| Grilla semanal | `src/data/horarios.json` | Horarios, precios y datos → Horarios |
-| Precios | `src/data/precios.json` | … → Precios |
-| Libro | `src/data/libro.json` | … → El libro |
-| Nombre, WhatsApp, redes, mapa | `src/data/sitio.json` | … → Datos del sitio |
+| Grilla semanal (una lista por día) | `src/data/horarios.json` | Horarios de clases |
+| Precios | `src/data/precios.json` | Precios |
+| Libro | `src/data/libro.json` | El libro |
+| Nombre, WhatsApp, redes, mapa | `src/data/sitio.json` | Datos del sitio y contacto |
 | Imágenes subidas | `public/uploads/` | (automático) |
 | Configuración del panel | `public/admin/config.yml` | — |
 
