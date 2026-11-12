@@ -14,6 +14,7 @@ const entradas = await entradasPublicadas();
       {entradas.length === 0 ? (
         <p class="vacio">Todavía no hay entradas publicadas.</p>
       ) : (
+        <h2 class="sr-only">Todas las entradas</h2>
         <div class="grid grid--3">
           {entradas.map((e) => <TarjetaEntrada entrada={e} />)}
         </div>

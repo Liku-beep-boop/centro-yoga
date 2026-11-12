@@ -3,7 +3,10 @@
   --crema-2: #f3ebdd;
   --arena: #e8dcc6;
   --terracota: #b5653a;
-  --terracota-osc: #8f4a26;
+  --terracota-osc: #8f4a26; /* para texto y para botones con texto blanco (contraste 6:1) */
+  --terracota-hover: #723a1d;
+  --verde-wa: #128c4a; /* verde WhatsApp oscurecido para que el texto blanco se lea */
+  --verde-wa-hover: #0e7a3f;
   --azafran: #d9962b;
   --salvia: #5f7a64;
   --tinta: #2d2a26;
@@ -30,12 +33,18 @@ body {
   font-size: 1.0625rem;
   line-height: 1.65;
   -webkit-font-smoothing: antialiased;
+  /* La serif trae números "antiguos" (el 1 parece una I): forzar números alineados. */
+  font-variant-numeric: lining-nums;
 }
 
 img { max-width: 100%; height: auto; display: block; }
 
 a { color: var(--terracota-osc); text-underline-offset: 3px; }
-a:hover { color: var(--terracota); }
+a:hover { color: var(--terracota-hover); }
+
+/* Marco visible al navegar con teclado */
+:focus-visible { outline: 3px solid var(--terracota-osc); outline-offset: 3px; border-radius: 4px; }
+.btn:focus-visible { border-radius: 999px; }
 
 h1, h2, h3 {
   font-family: var(--serif);
@@ -62,7 +71,7 @@ p { margin: 0 0 1em; }
   font-size: 0.8rem;
   letter-spacing: 0.16em;
   text-transform: uppercase;
-  color: var(--terracota);
+  color: var(--terracota-osc);
   font-weight: 700;
   margin-bottom: 0.6rem;
 }
@@ -88,12 +97,12 @@ p { margin: 0 0 1em; }
   cursor: pointer;
 }
 .btn:hover { transform: translateY(-1px); }
-.btn--primario { background: var(--terracota); color: var(--blanco); }
-.btn--primario:hover { background: var(--terracota-osc); color: var(--blanco); }
+.btn--primario { background: var(--terracota-osc); color: var(--blanco); }
+.btn--primario:hover { background: var(--terracota-hover); color: var(--blanco); }
 .btn--borde { border-color: var(--terracota); color: var(--terracota-osc); background: transparent; }
-.btn--borde:hover { background: var(--terracota); color: var(--blanco); }
-.btn--wa { background: #25d366; color: #fff; }
-.btn--wa:hover { background: #1ebe5a; color: #fff; }
+.btn--borde:hover { background: var(--terracota-osc); border-color: var(--terracota-osc); color: var(--blanco); }
+.btn--wa { background: var(--verde-wa); color: #fff; }
+.btn--wa:hover { background: var(--verde-wa-hover); color: #fff; }
 .acciones { display: flex; flex-wrap: wrap; gap: 12px; }
 
 /* Tarjetas */

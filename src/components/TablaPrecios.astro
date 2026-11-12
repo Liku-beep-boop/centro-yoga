@@ -26,19 +26,20 @@ const planes = (precios.planes ?? []) as Plan[];
 )}
 
 <style>
-  .planes { display: grid; gap: 20px; }
+  .planes { display: grid; gap: 28px 20px; padding-top: 12px; }
   @media (min-width: 640px) { .planes { grid-template-columns: repeat(2, 1fr); } }
   @media (min-width: 1000px) { .planes { grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); } }
 
-  .plan { position: relative; padding: 28px 24px; border: 2px solid transparent; }
+  /* overflow visible: el cartel "Recomendado" va montado sobre el borde superior, sin tapar el título */
+  .plan { position: relative; padding: 28px 24px; border: 2px solid transparent; overflow: visible; }
   .plan--destacado { border-color: var(--terracota); }
   .plan__badge {
-    position: absolute; top: 16px; right: 16px;
+    position: absolute; top: 0; left: 22px; transform: translateY(-50%);
     background: var(--azafran); color: var(--tinta);
     font-size: 0.72rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase;
     padding: 4px 10px; border-radius: 999px;
   }
-  .plan h3 { font-size: 1.45rem; padding-right: 90px; }
+  .plan h3 { font-size: 1.45rem; }
   .plan__precio { font-family: var(--serif); font-size: 2.6rem; font-weight: 600; color: var(--terracota-osc); margin: 0; line-height: 1.1; }
   .plan__periodo { color: var(--tinta-suave); font-size: 0.9rem; margin-bottom: 16px; }
   ul { list-style: none; padding: 0; margin: 0; display: grid; gap: 8px; }

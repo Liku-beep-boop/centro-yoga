@@ -12,7 +12,7 @@ import sitio from '../src/data/sitio.json';
 
 const COOKIE = 'acceso_web';
 const DURACION = 60 * 60 * 24 * 30; // 30 días
-const LIBRES = [/^\/admin(\/|$)/, /^\/favicon\.svg$/];
+const LIBRES = [/^\/admin(\/|$)/, /^\/favicon\.svg$/, /^\/og-imagen\.png$/];
 
 export default {
   async fetch(request, env) {
@@ -118,14 +118,15 @@ function paginaMantenimiento(claveIncorrecta) {
   }
   main { max-width: 560px; }
   .logo { display: block; width: 76px; height: 76px; margin: 0 auto 24px; }
-  .eyebrow { display: block; line-height: 1.5; font-size: .8rem; letter-spacing: .16em; text-transform: uppercase; color: var(--terracota); font-weight: 700; }
+  .eyebrow { display: block; line-height: 1.5; font-size: .8rem; letter-spacing: .16em; text-transform: uppercase; color: var(--terracota-osc); font-weight: 700; }
   h1 { font-family: 'Cormorant Garamond', Georgia, serif; font-weight: 600; font-size: clamp(2.2rem, 7vw, 3.2rem); line-height: 1.1; margin: .4em 0 .3em; }
   p { font-size: 1.1rem; line-height: 1.6; color: var(--suave); margin: 0 0 1.6em; }
   .acciones { display: flex; flex-wrap: wrap; gap: 12px; justify-content: center; }
   .btn { display: inline-block; padding: .75rem 1.4rem; border-radius: 999px; border: 2px solid var(--terracota); color: var(--terracota-osc); font-weight: 700; text-decoration: none; }
-  .btn:hover { background: var(--terracota); color: #fff; }
-  .btn--wa { background: #25d366; border-color: #25d366; color: #fff; }
-  .btn--wa:hover { background: #1ebe5a; border-color: #1ebe5a; }
+  .btn:hover { background: var(--terracota-osc); border-color: var(--terracota-osc); color: #fff; }
+  .btn:focus-visible { outline: 3px solid var(--terracota-osc); outline-offset: 3px; }
+  .btn--wa { background: #128c4a; border-color: #128c4a; color: #fff; }
+  .btn--wa:hover { background: #0e7a3f; border-color: #0e7a3f; }
   .aviso { margin-top: 28px; font-size: .9rem; color: var(--terracota-osc); }
 </style>
 </head>

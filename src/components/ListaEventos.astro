@@ -35,7 +35,7 @@ const { eventos, mostrarDescripcion = false } = Astro.props;
             <div class="evento__pie">
               {d.precio && <span class="evento__precio">{d.precio}</span>}
               {inscribirse && (
-                <a href={inscribirse} class="btn btn--borde" target="_blank" rel="noopener">Inscribirme</a>
+                <a href={inscribirse} class="btn btn--borde" target="_blank" rel="noopener" aria-label={`Inscribirme a ${d.titulo}`}>Inscribirme</a>
               )}
             </div>
           </div>
@@ -50,7 +50,7 @@ const { eventos, mostrarDescripcion = false } = Astro.props;
   .evento { display: grid; grid-template-columns: 76px 1fr; gap: 18px; padding: 20px; align-items: start; }
   .evento__fecha {
     display: grid; place-items: center; text-align: center;
-    background: var(--terracota); color: var(--blanco);
+    background: var(--terracota-osc); color: var(--blanco);
     border-radius: 12px; padding: 10px 4px; line-height: 1.1;
   }
   .evento__dia { font-family: var(--serif); font-size: 2rem; font-weight: 600; }
