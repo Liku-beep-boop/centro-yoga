@@ -5,7 +5,11 @@ import sitio from '../data/sitio.json';
 import { waLink } from '../lib/utils';
 
 const wa = waLink(sitio.whatsapp, sitio.whatsapp_mensaje);
-const numeroVisible = sitio.whatsapp ? `+${sitio.whatsapp.replace(/\D/g, '')}` : '';
+const digitos = (sitio.whatsapp || '').replace(/\D/g, '');
+// Celular de Buenos Aires (549 11 XXXX-XXXX) → "11 5567-5161"; otros formatos se muestran tal cual.
+const numeroVisible = /^54911\d{8}$/.test(digitos)
+  ? `11 ${digitos.slice(5, 9)}-${digitos.slice(9)}`
+  : digitos && `+${digitos}`;
 ---
 
 <Base titulo="Contacto" descripcion={`Contacto y ubicación de ${sitio.nombre}.`}>
