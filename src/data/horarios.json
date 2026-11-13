@@ -44,17 +44,17 @@
   ],
   "viernes": [
     {
-      "inicio": "08:00",
-      "fin": "09:15",
+      "inicio": "16:00",
+      "fin": "17:00",
       "clase": "Hatha Yoga",
-      "profesora": "Profesora 3",
+      "profesora": "Maha Devi",
       "nivel": "Todos los niveles"
     }
   ],
   "sabado": [
     {
-      "inicio": "16:00",
-      "fin": "17:00",
+      "inicio": "10:00",
+      "fin": "11:00",
       "clase": "Yoga",
       "profesora": "Maha Devi",
       "nivel": "Todos los niveles"
